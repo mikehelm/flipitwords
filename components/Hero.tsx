@@ -4,6 +4,8 @@ import { HeroVariant } from '@/data/heroVariants';
 import { useHeroVariant } from '@/context/HeroVariantContext';
 import { heroVariants } from '@/data/heroVariants';
 import HeroBadge from './HeroBadge';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 interface HeroProps {
   variant: HeroVariant;
@@ -11,6 +13,37 @@ interface HeroProps {
 
 export default function Hero({ variant }: HeroProps) {
   const { setVariant, isTestMode, mounted } = useHeroVariant();
+  const pathname = usePathname();
+  const [scrollOpacity, setScrollOpacity] = useState(1);
+  const [leftClicked, setLeftClicked] = useState(false);
+  const [rightClicked, setRightClicked] = useState(false);
+
+  const isHomepage = pathname === '/';
+  const showArrows = mounted && isTestMode && isHomepage;
+
+  useEffect(() => {
+    if (!showArrows) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      // Fade from opacity 1 to 0 as user scrolls from 0 to 300px
+      const opacity = Math.max(0, 1 - scrollY / 300);
+      setScrollOpacity(opacity);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [showArrows]);
+
+  const handleLeftClick = () => {
+    setLeftClicked(true);
+    setVariant(variant.id === 0 ? heroVariants.length - 1 : variant.id - 1);
+  };
+
+  const handleRightClick = () => {
+    setRightClicked(true);
+    setVariant((variant.id + 1) % heroVariants.length);
+  };
 
   const handleCtaClick = (ctaType: 'primary' | 'secondary') => {
     window.dispatchEvent(new CustomEvent('hero_cta_click', { 
@@ -35,6 +68,38 @@ export default function Hero({ variant }: HeroProps) {
       <div className="flipit-fade-bottom"></div>
       
       {mounted && isTestMode && <HeroBadge />}
+      
+      {/* Left Arrow - only on homepage */}
+      {showArrows && (
+        <button
+          onClick={handleLeftClick}
+          style={{ opacity: scrollOpacity, pointerEvents: scrollOpacity > 0.1 ? 'auto' : 'none' }}
+          className={`absolute left-4 top-1/2 -translate-y-1/2 z-40 w-24 h-24 bg-gray-800/90 hover:bg-gray-700 border border-gray-700 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 ${
+            !leftClicked ? 'animate-pulse' : ''
+          }`}
+          aria-label="Previous hero variant"
+        >
+          <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      )}
+
+      {/* Right Arrow - only on homepage */}
+      {showArrows && (
+        <button
+          onClick={handleRightClick}
+          style={{ opacity: scrollOpacity, pointerEvents: scrollOpacity > 0.1 ? 'auto' : 'none' }}
+          className={`absolute right-4 top-1/2 -translate-y-1/2 z-40 w-24 h-24 bg-gray-800/90 hover:bg-gray-700 border border-gray-700 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 ${
+            !rightClicked ? 'animate-pulse' : ''
+          }`}
+          aria-label="Next hero variant"
+        >
+          <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      )}
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         {/* Kicker - optional smaller text above headline */}
