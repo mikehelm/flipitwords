@@ -23,10 +23,20 @@ export default function Hero({ variant }: HeroProps) {
   };
 
   return (
-    <section className="bg-gradient-to-br from-gray-900 to-black py-16 sm:py-24 lg:py-32 relative">
+    <section className="flipit-bg py-16 sm:py-24 lg:py-32 relative min-h-[80vh]">
+      {/* Gradient orbs */}
+      <div className="flipit-orbs">
+        <div className="flipit-orb flipit-orb-1"></div>
+        <div className="flipit-orb flipit-orb-2"></div>
+        <div className="flipit-orb flipit-orb-3"></div>
+      </div>
+      
+      {/* Bottom fade */}
+      <div className="flipit-fade-bottom"></div>
+      
       {mounted && isTestMode && <HeroBadge />}
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         {/* Kicker - optional smaller text above headline */}
         {variant.kicker && (
           <p className="text-sm sm:text-base font-semibold text-flipit-orange uppercase tracking-wide mb-4">

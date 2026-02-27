@@ -4,7 +4,7 @@
 
 :root {
   --foreground: #ffffff;
-  --background: #0a0a0a;
+  --background: #070823;
   --flipit-orange: #FF8F0A;
 }
 
@@ -29,4 +29,82 @@ body {
 
 .hover\:bg-orange-600:hover {
   background-color: #e67e00;
+}
+
+/* Flipit background pattern */
+.flipit-bg {
+  background-color: #070823;
+  position: relative;
+}
+
+.flipit-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(114, 114, 114, 0.15) 0px,
+      rgba(114, 114, 114, 0.15) 1px,
+      transparent 1px,
+      transparent 100px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(114, 114, 114, 0.15) 0px,
+      rgba(114, 114, 114, 0.15) 1px,
+      transparent 1px,
+      transparent 100px
+    );
+  pointer-events: none;
+}
+
+/* Gradient orbs */
+.flipit-orbs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.flipit-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+
+.flipit-orb-1 {
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  left: 10%;
+  background: linear-gradient(135deg, #2b7fff, #ad46ff, #f6339a);
+}
+
+.flipit-orb-2 {
+  width: 350px;
+  height: 350px;
+  top: 20%;
+  right: 5%;
+  background: linear-gradient(135deg, #ad46ff, #f6339a, #ff6500);
+}
+
+.flipit-orb-3 {
+  width: 300px;
+  height: 300px;
+  bottom: 10%;
+  left: 20%;
+  background: linear-gradient(135deg, #f6339a, #ff6f3c, #ff9d33);
+}
+
+/* Bottom fade */
+.flipit-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 256px;
+  background: linear-gradient(transparent, #0b0d15);
+  pointer-events: none;
 }

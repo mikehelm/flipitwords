@@ -26,10 +26,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} bg-black text-white`}>
+      <body className={`${inter.className} bg-[#070823] text-white`}>
         <HeroVariantProvider>
           <Header />
-          <main className="min-h-screen bg-black">
+          <main className="min-h-screen bg-[#070823]">
             {children}
           </main>
           <Footer />
