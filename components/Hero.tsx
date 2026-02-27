@@ -10,7 +10,7 @@ interface HeroProps {
 }
 
 export default function Hero({ variant }: HeroProps) {
-  const { setVariant, isTestMode } = useHeroVariant();
+  const { setVariant, isTestMode, mounted } = useHeroVariant();
 
   const handleCtaClick = (ctaType: 'primary' | 'secondary') => {
     window.dispatchEvent(new CustomEvent('hero_cta_click', { 
@@ -24,7 +24,7 @@ export default function Hero({ variant }: HeroProps) {
 
   return (
     <section className="bg-gradient-to-br from-gray-900 to-black py-16 sm:py-24 lg:py-32 relative">
-      <HeroBadge />
+      {mounted && isTestMode && <HeroBadge />}
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Kicker - optional smaller text above headline */}
@@ -99,7 +99,7 @@ export default function Hero({ variant }: HeroProps) {
         </p>
 
         {/* Dots indicator - only in test mode, positioned under hero */}
-        {isTestMode && (
+        {mounted && isTestMode && (
           <div className="mt-12 flex gap-3 justify-center">
             {heroVariants.map((v) => (
               <button

@@ -8,21 +8,25 @@ interface HeroVariantContextType {
   setVariant: (id: number) => void;
   cycleVariant: () => void;
   isTestMode: boolean;
+  mounted: boolean;
 }
 
 const HeroVariantContext = createContext<HeroVariantContextType | undefined>(undefined);
 
 export function HeroVariantProvider({ children }: { children: ReactNode }) {
+  const [mounted, setMounted] = useState(false);
   const [currentVariant, setCurrentVariant] = useState<HeroVariant>(heroVariants[0]);
   const [isTestMode, setIsTestMode] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     // Check for test mode
     const params = new URLSearchParams(window.location.search);
     const heroTest = params.get('heroTest');
     const heroParam = params.get('hero');
     
-    const inTestMode = heroTest === '1' || process.env.NODE_ENV !== 'production';
+    const inTestMode = heroTest === '1';
     setIsTestMode(inTestMode);
 
     // Determine initial variant
@@ -33,8 +37,8 @@ export function HeroVariantProvider({ children }: { children: ReactNode }) {
       if (!isNaN(id) && id >= 0 && id < heroVariants.length) {
         initialVariantId = id;
       }
-    } else {
-      // Check localStorage
+    } else if (inTestMode) {
+      // Only check localStorage in test mode
       const stored = localStorage.getItem('flipit_hero_variant');
       if (stored) {
         const id = parseInt(stored, 10);
@@ -54,7 +58,9 @@ export function HeroVariantProvider({ children }: { children: ReactNode }) {
   const setVariant = (id: number) => {
     if (id >= 0 && id < heroVariants.length) {
       setCurrentVariant(heroVariants[id]);
-      localStorage.setItem('flipit_hero_variant', id.toString());
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('flipit_hero_variant', id.toString());
+      }
       if (isTestMode) {
         console.log(`[Hero Variant] Switched to: ${heroVariants[id].name} (ID: ${id})`);
       }
@@ -67,7 +73,7 @@ export function HeroVariantProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <HeroVariantContext.Provider value={{ currentVariant, setVariant, cycleVariant, isTestMode }}>
+    <HeroVariantContext.Provider value={{ currentVariant, setVariant, cycleVariant, isTestMode, mounted }}>
       {children}
     </HeroVariantContext.Provider>
   );

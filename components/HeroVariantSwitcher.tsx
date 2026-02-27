@@ -5,19 +5,20 @@ import { useHeroVariant } from '../context/HeroVariantContext';
 import { heroVariants } from '../data/heroVariants';
 
 export default function HeroVariantSwitcher() {
-  const { currentVariant, setVariant, isTestMode } = useHeroVariant();
+  const { currentVariant, setVariant, isTestMode, mounted } = useHeroVariant();
   const [showPopup, setShowPopup] = useState(false);
   const [leftClicked, setLeftClicked] = useState(false);
   const [rightClicked, setRightClicked] = useState(false);
 
   useEffect(() => {
-    if (isTestMode) {
+    if (mounted && isTestMode) {
       const timer = setTimeout(() => setShowPopup(true), 1000);
       return () => clearTimeout(timer);
     }
-  }, [isTestMode]);
+  }, [mounted, isTestMode]);
 
-  if (!isTestMode) return null;
+  // Don't render until mounted on client
+  if (!mounted || !isTestMode) return null;
 
   const handleLeftClick = () => {
     setLeftClicked(true);
