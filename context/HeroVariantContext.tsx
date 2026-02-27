@@ -21,17 +21,18 @@ export function HeroVariantProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setMounted(true);
     
-    // Check for test mode
+    // Check for test mode - auto-enable on flipitwords.vercel.app or with ?heroTest=1
     const params = new URLSearchParams(window.location.search);
     const heroTest = params.get('heroTest');
-    const heroParam = params.get('hero');
+    const hostname = window.location.hostname;
     
-    const inTestMode = heroTest === '1';
+    const inTestMode = heroTest === '1' || hostname === 'flipitwords.vercel.app' || hostname === 'localhost';
     setIsTestMode(inTestMode);
 
     // Determine initial variant
     let initialVariantId = 0;
     
+    const heroParam = params.get('hero');
     if (heroParam) {
       const id = parseInt(heroParam, 10);
       if (!isNaN(id) && id >= 0 && id < heroVariants.length) {
