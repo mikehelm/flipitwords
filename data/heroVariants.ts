@@ -14,6 +14,22 @@ export interface HeroVariant {
 export const heroVariants: HeroVariant[] = [
   {
     id: 0,
+    name: "Is this site legit?",
+    kicker: "Before you trust it",
+    headline: "Is this site legit?",
+    subheadline: "Flip it for warnings and real experiences.",
+    supportLine: "Stop playing detective.",
+    bullets: [
+      "Scam flags in context",
+      "Notes from real people",
+      "Share a Flip Card"
+    ],
+    primaryCtaText: "Add to Chrome",
+    secondaryCtaText: "See demo",
+    microcopy: "Businesses can respond. They can't remove what people say."
+  },
+  {
+    id: 1,
     name: "Control (current)",
     headline: "Flip any page. See what's real.",
     subheadline: "Independent reviews and warnings, on the page you're viewing.",
@@ -28,7 +44,7 @@ export const heroVariants: HeroVariant[] = [
     microcopy: "No separate website. No search required."
   },
   {
-    id: 1,
+    id: 2,
     name: "Controversy (spicy back layer)",
     kicker: "The Back of the Internet",
     headline: "The back of the internet is spicy.",
@@ -38,22 +54,6 @@ export const heroVariants: HeroVariant[] = [
       "Receipts show up fast",
       "Warnings travel with the page",
       "Share the back layer"
-    ],
-    primaryCtaText: "Add to Chrome",
-    secondaryCtaText: "See demo",
-    microcopy: "Businesses can respond. They can't remove what people say."
-  },
-  {
-    id: 2,
-    name: "Is this site legit?",
-    kicker: "Before you trust it",
-    headline: "Is this site legit?",
-    subheadline: "Flip it for warnings and real experiences.",
-    supportLine: "Stop playing detective.",
-    bullets: [
-      "Scam flags in context",
-      "Notes from real people",
-      "Share a Flip Card"
     ],
     primaryCtaText: "Add to Chrome",
     secondaryCtaText: "See demo",
