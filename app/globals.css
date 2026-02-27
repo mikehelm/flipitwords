@@ -5,6 +5,7 @@
 :root {
   --foreground: #ffffff;
   --background: #0a0a0a;
+  --flipit-orange: #FF8F0A;
 }
 
 body {
@@ -15,13 +16,17 @@ body {
 
 /* Custom utility for Flipit orange */
 .bg-flipit-orange {
-  background-color: #FF4500;
+  background-color: var(--flipit-orange);
 }
 
 .text-flipit-orange {
-  color: #FF4500;
+  color: var(--flipit-orange);
 }
 
 .border-flipit-orange {
-  border-color: #FF4500;
+  border-color: var(--flipit-orange);
+}
+
+.hover\:bg-orange-600:hover {
+  background-color: #e67e00;
 }

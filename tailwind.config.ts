@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         flipit: {
-          orange: '#FF4500',
+          orange: '#FF8F0A',
         },
       },
     },
