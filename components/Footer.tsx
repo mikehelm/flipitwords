@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   const navLinks = [
@@ -26,7 +27,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <span className="text-2xl font-bold text-flipit-orange">Flipit</span>
+            <Image
+              src="/logo.svg"
+              alt="Flipit"
+              width={93}
+              height={40}
+              className="h-8 w-auto"
+            />
             <p className="mt-4 text-gray-400 max-w-md">
               Independent reviews and warnings, on the page you&apos;re viewing.
             </p>
