@@ -34,32 +34,20 @@ export default function HeroVariantSwitcher() {
     <>
       {/* Popup Modal */}
       {showPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-          <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl max-w-md mx-4 p-8 text-center">
-            <div className="text-4xl mb-4">✍️</div>
-            <h2 className="text-2xl font-bold text-white mb-4">Wordsmith Mode</h2>
-            <p className="text-gray-300 mb-4">
-              This page is for <strong className="text-flipit-orange">wordsmithing purposes only</strong>.
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div className="bg-[#12141f] border border-gray-700 rounded-2xl shadow-2xl max-w-sm mx-4 p-8 text-center">
+            <h2 className="text-3xl font-bold text-flipit-orange mb-4">NOT A WEBSITE</h2>
+            <p className="text-gray-300 mb-6">
+              This is for testing words only.
             </p>
-            <div className="bg-gray-800 rounded-xl p-4 mb-6 text-left border border-gray-700">
-              <p className="text-sm text-gray-300 font-medium mb-2">How to use:</p>
-              <ul className="text-sm text-gray-400 space-y-2">
-                <li className="flex items-center gap-2">
-                  <span className="text-lg">←</span>
-                  <span>Use <strong className="text-white">left/right arrows</strong> to cycle through 6 hero variants</span>
-                  <span className="text-lg">→</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-flipit-orange rounded-full"></span>
-                  <span>Click the <strong className="text-white">dots</strong> below the hero to jump to a specific variant</span>
-                </li>
-              </ul>
-            </div>
+            <p className="text-gray-400 text-sm mb-6">
+              Use the arrows to cycle through hero options.
+            </p>
             <button
               onClick={() => setShowPopup(false)}
               className="bg-flipit-orange hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-semibold transition-colors"
             >
-              Got it, let&apos;s go
+              Got it
             </button>
           </div>
         </div>
