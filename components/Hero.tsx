@@ -184,7 +184,7 @@ export default function Hero({ variant }: HeroProps) {
 
         {/* Dots indicator - only in test mode, positioned under hero */}
         {mounted && isTestMode && (
-          <div className="mt-12 flex gap-3 justify-center">
+          <div className="mt-24 flex gap-3 justify-center opacity-50 hover:opacity-100 transition-opacity">
             {heroVariants.map((v) => (
               <button
                 key={v.id}
