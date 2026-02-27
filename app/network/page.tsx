@@ -1,100 +1,99 @@
 export default function NetworkPage() {
   const nodeBenefits = [
-    {
-      title: 'Earn rewards',
-      description: 'Node operators earn $FLIPS for contributing to network security and data availability.',
-    },
-    {
-      title: 'Support independence',
-      description: 'Help maintain a decentralized infrastructure that no single entity controls.',
-    },
-    {
-      title: 'Early access',
-      description: 'Node operators get early access to new features and governance participation.',
-    },
+    { title: 'Earn Rewards', description: 'Run a node, contribute to network stability, and earn $FLIPS tokens for uptime and performance.' },
+    { title: 'Support Decentralization', description: 'Help maintain a resilient network that keeps conversations transparent and secure.' },
+    { title: 'Participate in Governance', description: 'Have a say in Flipit\'s roadmap through community-driven voting.' },
+    { title: 'Access Exclusive Features', description: 'Get early access to premium tools, content, and ecosystem updates.' },
   ];
 
   const tokenUtility = [
-    'Stake for node operation',
-    'Governance voting rights',
-    'Access to premium features',
-    'Reward distribution',
+    'Highlight and elevate content',
+    'Access premium content',
+    'Purchase advertising space',
+    'Governance participation',
   ];
 
   return (
-    <div className="py-16 sm:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Flipit Network
-          </h1>
-          <p className="text-xl text-gray-600">
-            Decentralized infrastructure for independent reviews.
+    <div className="min-h-screen bg-black">
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-gray-900 to-black py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">Flipit Network</h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+            Power the back of the internet. Earn rewards. Shape the future.
           </p>
+          <a
+            href="https://get.flipit.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-flipit-orange text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-orange-600 transition-colors"
+          >
+            Buy a Node
+          </a>
         </div>
+      </section>
 
-        {/* Node Operator Benefits */}
-        <div className="grid md:grid-cols-3 gap-8 mb-24">
-          {nodeBenefits.map((benefit, index) => (
-            <div key={index} className="bg-gray-50 rounded-xl p-8">
-              <div className="w-12 h-12 bg-flipit-orange text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
-                {index + 1}
+      {/* Node benefits */}
+      <section className="py-16 sm:py-24 bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">Why run a node</h2>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {nodeBenefits.map((benefit) => (
+              <div key={benefit.title} className="bg-black border border-gray-700 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-2">{benefit.title}</h3>
+                <p className="text-gray-400">{benefit.description}</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{benefit.title}</h3>
-              <p className="text-gray-600">{benefit.description}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* $FLIPS Token */}
-        <div className="bg-gray-900 text-white rounded-2xl p-8 sm:p-12 mb-16">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-6">
-              $FLIPS Token Utility
-            </h2>
-            <p className="text-gray-300 mb-8">
-              The $FLIPS token powers the Flipit ecosystem.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-4 text-left max-w-md mx-auto">
+      {/* $FLIPS Token */}
+      <section className="py-16 sm:py-24 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-white text-center mb-4">The $FLIPS Token</h2>
+          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+            Powers the Flipit platform. Enables advertising, governance, premium content, and content highlighting.
+          </p>
+          
+          <div className="max-w-2xl mx-auto bg-gray-900 border border-gray-700 rounded-xl p-8">
+            <h3 className="text-xl font-bold text-white mb-6">Token utility</h3>
+            <ul className="space-y-4">
               {tokenUtility.map((utility, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <span className="text-flipit-orange font-bold">◆</span>
+                <li key={index} className="flex items-center gap-3">
+                  <span className="text-flipit-orange">•</span>
                   <span className="text-gray-300">{utility}</span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
+      </section>
 
-        {/* Links */}
-        <div className="max-w-2xl mx-auto text-center space-y-6">
-          <div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
-              Read the whitepaper
-            </h3>
-            <a
-              href="https://node.flipit.com/whitepaper"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-flipit-orange hover:underline font-medium"
-            >
-              https://node.flipit.com/whitepaper →
-            </a>
-          </div>
-
-          <div className="pt-8">
-            <a
-              href="https://get.flipit.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-flipit-orange text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-orange-600 transition-colors"
-            >
-              Buy a Node
-            </a>
-          </div>
+      {/* Contract */}
+      <section className="py-16 sm:py-24 bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Contract Address</h2>
+          <p className="text-gray-400 mb-2">Binance Smart Chain</p>
+          <code className="text-sm text-flipit-orange bg-black px-4 py-2 rounded-lg inline-block">
+            0xa39f841ba9e6c97d7096Ae3CF02521d5B9202B82
+          </code>
         </div>
-      </div>
+      </section>
+
+      {/* Whitepaper */}
+      <section className="py-16 sm:py-24 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <a
+            href="https://node.flipit.com/whitepaper"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block border border-flipit-orange text-flipit-orange px-8 py-4 rounded-xl font-semibold text-lg hover:bg-flipit-orange hover:text-white transition-colors"
+          >
+            Read the Whitepaper
+          </a>
+        </div>
+      </section>
     </div>
   );
 }

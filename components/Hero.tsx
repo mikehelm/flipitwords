@@ -23,30 +23,30 @@ export default function Hero({ variant }: HeroProps) {
   };
 
   return (
-    <section className="bg-gradient-to-br from-gray-50 to-white py-16 sm:py-24 lg:py-32 relative">
+    <section className="bg-gradient-to-br from-gray-900 to-black py-16 sm:py-24 lg:py-32 relative">
       <HeroBadge />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Kicker - optional smaller text above headline */}
         {variant.kicker && (
-          <p className="text-sm sm:text-base font-semibold text-[#FF4500] uppercase tracking-wide mb-4">
+          <p className="text-sm sm:text-base font-semibold text-flipit-orange uppercase tracking-wide mb-4">
             {variant.kicker}
           </p>
         )}
         
         {/* Main headline */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight">
           {variant.headline}
         </h1>
         
         {/* Subheadline */}
-        <p className="mt-6 text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto">
+        <p className="mt-6 text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
           {variant.subheadline}
         </p>
         
         {/* Support line - optional secondary paragraph */}
         {variant.supportLine && (
-          <p className="mt-4 text-lg text-gray-500 font-medium">
+          <p className="mt-4 text-lg text-gray-400 font-medium">
             {variant.supportLine}
           </p>
         )}
@@ -56,9 +56,9 @@ export default function Hero({ variant }: HeroProps) {
           {variant.bullets.map((bullet, index) => (
             <li 
               key={index}
-              className="flex items-center gap-2 text-gray-700"
+              className="flex items-center gap-2 text-gray-300"
             >
-              <svg className="w-5 h-5 text-[#FF4500] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-flipit-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
               <span>{bullet}</span>
@@ -85,7 +85,7 @@ export default function Hero({ variant }: HeroProps) {
           <button
             onClick={() => handleCtaClick('secondary')}
             data-hero-variant={variant.id}
-            className="text-gray-600 hover:text-gray-900 font-semibold text-lg transition-colors"
+            className="text-gray-300 hover:text-white font-semibold text-lg transition-colors"
           >
             <a href="#demo">
               {variant.secondaryCtaText} ↓
@@ -94,7 +94,7 @@ export default function Hero({ variant }: HeroProps) {
         </div>
         
         {/* Microcopy */}
-        <p className="mt-6 text-sm text-gray-400 italic">
+        <p className="mt-6 text-sm text-gray-500 italic">
           {variant.microcopy}
         </p>
 
@@ -107,8 +107,8 @@ export default function Hero({ variant }: HeroProps) {
                 onClick={() => setVariant(v.id)}
                 className={`w-3 h-3 rounded-full transition-all ${
                   variant.id === v.id
-                    ? 'bg-orange-500 scale-125'
-                    : 'bg-gray-300 hover:bg-gray-400'
+                    ? 'bg-flipit-orange scale-125'
+                    : 'bg-gray-600 hover:bg-gray-500'
                 }`}
                 aria-label={`Go to variant: ${v.name}`}
                 title={v.name}

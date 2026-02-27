@@ -3,15 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  --foreground: #ffffff;
+  --background: #0a0a0a;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Inter, system-ui, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Custom utility for Flipit orange */
+.bg-flipit-orange {
+  background-color: #FF4500;
+}
+
+.text-flipit-orange {
+  color: #FF4500;
+}
+
+.border-flipit-orange {
+  border-color: #FF4500;
 }
