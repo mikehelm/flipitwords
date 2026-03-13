@@ -1,0 +1,15 @@
+{
+  "realName": "Pim",
+  "platform": "instagram",
+  "followerCount": 92000,
+  "engagementRate": 3.8,
+  "contentNiche": ["food reviews", "city guides"],
+  "locationFocus": "Bangkok",
+  "recentContentThemes": ["hidden restaurants", "budget-friendly dining"],
+  "audienceDemographic": "18-34 urban Thai food lovers",
+  "brandDeals": ["Local cafe campaigns"],
+  "estimatedRatePerPost": "$300-$500",
+  "whyTheyFit": "Audience closely overlaps with invite-only dining interest.",
+  "personalizedHook": "Your audience is already asking where to eat next; this gives them real access perks.",
+  "sources": ["https://example.com/influencer"]
+}

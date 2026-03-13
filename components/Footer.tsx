@@ -30,9 +30,9 @@ export default function Footer() {
             <Image
               src="/logo.svg"
               alt="Flipit"
-              width={93}
-              height={40}
-              className="h-8 w-auto"
+              width={372}
+              height={160}
+              className="h-32 w-auto"
             />
             <p className="mt-4 text-gray-400 max-w-md">
               Independent reviews and warnings, on the page you&apos;re viewing.

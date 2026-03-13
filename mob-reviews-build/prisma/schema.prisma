@@ -1,0 +1,404 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum ContactType {
+  RESTAURANT
+  INFLUENCER
+  FRANCHISE
+  MEMBER
+}
+
+enum ContactStatus {
+  COLD
+  CONTACTED
+  INTERESTED
+  DEMO_MEETING
+  NEGOTIATING
+  ONBOARDED
+  ACTIVE
+  CHURNED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ResearchJobStatus {
+  QUEUED
+  PROCESSING
+  COMPLETE
+  FAILED
+}
+
+enum LandingPageStatus {
+  DRAFT
+  ACTIVE
+  EXPIRED
+  ARCHIVED
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+}
+
+enum OutreachStatus {
+  QUEUED
+  SENT
+  OPENED
+  REPLIED
+  CONVERTED
+  BOUNCED
+  FAILED
+}
+
+enum ReferralType {
+  MEMBER_INVITE
+  FRANCHISE_SALE
+  RESTAURANT_ADD
+  OPERATOR_RECRUIT
+}
+
+enum CommissionStatus {
+  CALCULATED
+  APPROVED
+  PAID
+}
+
+enum ContentType {
+  BLOG_POST
+  SOCIAL_CAPTION
+  VIDEO_SCRIPT
+  EMAIL_TEMPLATE
+  LANDING_PAGE_COPY
+}
+
+enum ContentStatus {
+  DRAFT
+  READY
+  PUBLISHED
+  ARCHIVED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Contact {
+  id                    String               @id @default(cuid())
+  name                  String
+  businessName          String?
+  type                  ContactType
+  status                ContactStatus        @default(COLD)
+  city                  String
+  country               String               @default("Thailand")
+  email                 String?
+  phone                 String?
+  website               String?
+  instagram             String?
+  tiktok                String?
+  facebook              String?
+  youtube               String?
+  line                  String?
+  notes                 String?
+  tags                  String?
+  source                String?
+  priority              Priority             @default(MEDIUM)
+  cuisineType           String?
+  priceRange            String?
+  neighborhood          String?
+  seatingCapacity       Int?
+  platform              String?
+  followerCount         Int?
+  engagementRate        Float?
+  niche                 String?
+  targetCity            String?
+  targetTerritory       String?
+  investmentCapacity    Float?
+  membershipTier        String?
+  reviewCount           Int?
+  activeStatus          Boolean?
+  lastActivityAt        DateTime?
+  lastResearchAt        DateTime?
+  hasSummary            Boolean              @default(false)
+  isEmailInvalid        Boolean              @default(false)
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+  researchResults       ResearchResult[]
+  researchJobs          ResearchJob[]
+  landingPages          LandingPage[]
+  contactCampaigns      ContactCampaign[]
+  outbounds             Outreach[]
+  referredByChains      ReferralChain[]      @relation("ReferralTo")
+  referralChains        ReferralChain[]      @relation("ReferralFrom")
+  hierarchyParents      FranchiseHierarchy[] @relation("HierarchyChild")
+  hierarchyChildren     FranchiseHierarchy[] @relation("HierarchyParent")
+  contents              Content[]
+  chatMessages          ChatMessage[]
+  activities            Activity[]
+
+  @@index([type, status])
+  @@index([city])
+}
+
+model ResearchResult {
+  id          String   @id @default(cuid())
+  contactId   String
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  summary     String
+  structured  Json
+  confidence  Int
+  isStale     Boolean  @default(false)
+  model       String?
+  sources     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ResearchJob {
+  id          String            @id @default(cuid())
+  contactId   String
+  contact     Contact           @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  status      ResearchJobStatus @default(QUEUED)
+  error       String?
+  retries     Int               @default(0)
+  runAfter    DateTime          @default(now())
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([status, runAfter])
+}
+
+model LandingPage {
+  id             String            @id @default(cuid())
+  contactId      String
+  contact        Contact           @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  slug           String            @unique
+  status         LandingPageStatus @default(DRAFT)
+  title          String
+  content        Json
+  ctaUrl         String?
+  viewCount      Int               @default(0)
+  uniqueViews    Int               @default(0)
+  ctaClicks      Int               @default(0)
+  avgTimeOnPage  Float             @default(0)
+  lastViewedAt   DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+}
+
+model Campaign {
+  id               String            @id @default(cuid())
+  name             String
+  targetType       ContactType
+  status           CampaignStatus    @default(DRAFT)
+  discount         Int               @default(25)
+  description      String?
+  contactCampaigns ContactCampaign[]
+  messages         CampaignMessage[]
+  outreach         Outreach[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model CampaignMessage {
+  id          String   @id @default(cuid())
+  campaignId  String
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  stepIndex   Int
+  delayDays   Int      @default(0)
+  subject     String
+  body        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([campaignId, stepIndex])
+}
+
+model ContactCampaign {
+  id            String          @id @default(cuid())
+  contactId     String
+  campaignId    String
+  approved      Boolean         @default(false)
+  enrolledAt    DateTime        @default(now())
+  convertedAt   DateTime?
+  generatedCopy GeneratedCopy[]
+  contact       Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  campaign      Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@unique([contactId, campaignId])
+}
+
+model GeneratedCopy {
+  id                String          @id @default(cuid())
+  contactCampaignId String
+  campaignMessageId String
+  subject           String
+  body              String
+  approved          Boolean         @default(false)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  contactCampaign   ContactCampaign @relation(fields: [contactCampaignId], references: [id], onDelete: Cascade)
+
+  @@unique([contactCampaignId, campaignMessageId])
+}
+
+model Outreach {
+  id               String         @id @default(cuid())
+  contactId        String
+  campaignId       String?
+  subject          String
+  body             String
+  provider         String         @default("resend")
+  providerMessageId String?
+  status           OutreachStatus @default(QUEUED)
+  sentAt           DateTime?
+  openedAt         DateTime?
+  repliedAt        DateTime?
+  convertedAt      DateTime?
+  failureReason    String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  contact          Contact        @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  campaign         Campaign?      @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+}
+
+model ReferralChain {
+  id            String       @id @default(cuid())
+  referrerId    String
+  refereeId     String
+  referralType  ReferralType
+  notes         String?
+  occurredAt    DateTime     @default(now())
+  referrer      Contact      @relation("ReferralFrom", fields: [referrerId], references: [id], onDelete: Cascade)
+  referee       Contact      @relation("ReferralTo", fields: [refereeId], references: [id], onDelete: Cascade)
+  commissions   Commission[]
+}
+
+model FranchiseHierarchy {
+  id           String   @id @default(cuid())
+  parentId     String
+  childId      String
+  territory    String?
+  createdAt    DateTime @default(now())
+  parent       Contact  @relation("HierarchyParent", fields: [parentId], references: [id], onDelete: Cascade)
+  child        Contact  @relation("HierarchyChild", fields: [childId], references: [id], onDelete: Cascade)
+
+  @@unique([parentId, childId])
+}
+
+model CommissionRule {
+  id            String       @id @default(cuid())
+  referralType  ReferralType @unique
+  amountType    String       @default("PERCENT")
+  value         Float
+  active        Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Commission {
+  id             String           @id @default(cuid())
+  referralChainId String
+  amount         Float
+  currency       String           @default("USD")
+  status         CommissionStatus @default(CALCULATED)
+  calculatedAt   DateTime         @default(now())
+  approvedAt     DateTime?
+  paidAt         DateTime?
+  referralChain  ReferralChain    @relation(fields: [referralChainId], references: [id], onDelete: Cascade)
+}
+
+model Content {
+  id           String        @id @default(cuid())
+  title        String
+  body         String
+  type         ContentType
+  status       ContentStatus @default(DRAFT)
+  tags         String?
+  campaignId   String?
+  contactId    String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  contact      Contact?      @relation(fields: [contactId], references: [id], onDelete: SetNull)
+}
+
+model ChatMessage {
+  id          String   @id @default(cuid())
+  sessionId   String
+  role        String
+  content     String
+  toolCalls   Json?
+  contactId   String?
+  createdAt   DateTime @default(now())
+  contact     Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+
+  @@index([sessionId, createdAt])
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  contactId   String?
+  type        String
+  message     String
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  contact     Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+}

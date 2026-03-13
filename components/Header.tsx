@@ -7,15 +7,15 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-[#070823] border-b border-gray-800">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.svg"
               alt="Flipit"
-              width={93}
-              height={40}
-              className="h-8 w-auto"
+              width={372}
+              height={160}
+              className="h-32 w-auto"
               priority
             />
           </Link>

@@ -1,0 +1,19 @@
+{
+  "ownerName": "Niran",
+  "cuisineType": "Thai",
+  "priceRange": "$$",
+  "neighborhood": "Sukhumvit",
+  "avgRating": 4.2,
+  "reviewCount": 218,
+  "topReviewThemes": ["friendly staff", "bold flavors"],
+  "painPoints": ["slow weekday lunch", "limited repeat customers"],
+  "opportunities": ["review-driven weekday offers", "local creator events"],
+  "bestTimeToVisit": "Weekday lunch",
+  "signatureItems": ["Tom Yum Goong", "Crispy Pork Basil"],
+  "recentChanges": "Refreshed lunch menu",
+  "socialPresence": "medium",
+  "estimatedMonthlyCovers": 1200,
+  "whyMOBworks": "Structured reviewer traffic can smooth off-peak demand.",
+  "personalizedHook": "You already have strong flavor reviews; MOBreviews can convert that into steady weekday covers.",
+  "sources": ["https://example.com/restaurant"]
+}
